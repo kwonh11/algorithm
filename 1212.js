@@ -7,7 +7,15 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', function (line) {
-    console.log(parseInt(line,8).toString(2));
+  const digits = line.split("");
+  const result = digits.map((digit,i) => {
+      const bin = parseInt(digit,8).toString(2);
+      if (i === 0) return bin;
+      const repeats = 3 - bin.length;
+      return "0".repeat(repeats) + bin;
+  }).join("");
+  console.log(result);
+  rl.close();
 })
 .on('close', function () {
     process.exit();
