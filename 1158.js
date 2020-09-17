@@ -3,22 +3,33 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+
 rl.on('line', function (line) {
-    const [N, K] = line;
+    const [N, K] = line.split(' ').map(v => Number(v));
     let arr = new Array(N).fill(0).map((v,i)=>i+1);
-    let josephus = [];
-    let rest = 0;
+    let josepus = [];
+    let count = 0;
     while(arr.length > 0) {
-        [...arr].forEach((v,i)=> {
-            if((i+1-rest) % K === 0) {
-                arr[i] = '';
-                josephus.push(v);        
-            }
-        });
-        rest = arr.length % K;
-        arr = arr.map(v => v);
+        count++;
+        let temp = arr.shift();
+        if (count === K) {
+            josepus.push(temp);
+            count = 0;
+        } else {
+            arr.push(temp);
+        }
     }
-    console.log(temp);
+    let result = '';
+    josepus.forEach((v,i)=>{
+        if(i === 0) {
+            result += `<${v}, `
+        }else if(i === josepus.length-1) {
+            result += `${v}>`
+        }else {
+            result += `${v}, `
+        }
+    })
+    console.log(result);
     rl.close();
 })
 .on('close', function () {
