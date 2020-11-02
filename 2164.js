@@ -7,12 +7,12 @@ const rl = readline.createInterface({
 rl.on('line', function (line) {
     const arr = Array(Number(line)).map((v,i)=>i+1);
     while(arr.length>1) {
-        arr.shift()
+        arr.shift();
         arr.push(arr.shift());
     }
     console.log(arr[0]);
     rl.close();
-})
-.on('close', function () {
+});
+rl.on('close', function () {
     process.exit();
 }); 
